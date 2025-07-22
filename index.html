@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DedE: Design Driven By Devotion</title>
+    <!-- Tailwind CSS CDN for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for a clean and modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Set the default font for the entire page */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* A slightly different dark blue for better contrast against background elements */
+            background-color: #0a192f; 
+        }
+        /* Custom styles for the active tab and language buttons to provide visual feedback */
+        .tab-button.active, .lang-button.active {
+            background-color: #4f46e5; /* Indigo-600 for active state */
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3); /* Soft shadow for active state */
+        }
+        /* Styles for the product language filter buttons */
+        .product-lang-button.active {
+            background-color: #10b981; /* Emerald-500 for active product filter */
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3); /* Shadow for active product filter */
+        }
+        /* Responsive video container to maintain a 16:9 aspect ratio across all screen sizes */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio (height / width * 100) */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg from Tailwind */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-300">
+    <!-- Main container for the entire page, centered and with vertical padding -->
+    <div class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+
+        <!-- Header Section: Contains logo, tagline, and language toggle -->
+        <header class="w-full max-w-5xl text-center mb-12 relative">
+            <!-- Logo Image -->
+            <div class="flex justify-center mb-4">
+                <!-- Image with a fallback placeholder in case the original image fails to load -->
+                <img src="https://i.imgur.com/HDMFh9m.png" alt="DedE Logo" class="h-24 sm:h-28 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/200x96/0a192f/FFFFFF?text=DedE+Logo';">
+            </div>
+            <!-- Tagline, dynamically translated -->
+            <p class="mt-2 text-xl sm:text-2xl text-gray-400 font-semibold" data-key="tagline">Design Driven By Devotion</p>
+
+            <!-- Language Toggle Buttons: Positioned absolutely for flexibility on different screen sizes -->
+            <div class="absolute top-0 right-0 sm:top-4 sm:right-4 flex bg-gray-900/50 rounded-full shadow-md p-1">
+                <button id="lang-es" class="lang-button px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out">ES</button>
+                <button id="lang-en" class="lang-button px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out">EN</button>
+            </div>
+        </header>
+
+        <!-- Tab Buttons: Navigation for switching between "Who Are We?" and "Products" sections -->
+        <div class="w-full max-w-md flex justify-center mb-8 bg-gray-900/50 p-2 rounded-full shadow-lg">
+            <button id="tab-quienes-somos" class="tab-button flex-1 py-3 px-6 text-base md:text-lg font-semibold rounded-full transition-all duration-300 ease-in-out" data-key="tabWhoAreWe">
+                Who Are We?
+            </button>
+            <button id="tab-productos" class="tab-button flex-1 py-3 px-6 text-base md:text-lg font-semibold rounded-full transition-all duration-300 ease-in-out" data-key="tabProducts">
+                Products
+            </button>
+        </div>
+
+        <!-- Main Content Area: Displays the content of the selected tab -->
+        <main class="w-full max-w-5xl">
+            <!-- "Who Are We?" Content Section: Initially visible -->
+            <div id="content-quienes-somos" class="tab-content w-full bg-gray-900/70 p-6 sm:p-8 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/10">
+                <h2 class="text-4xl font-bold text-center text-indigo-400 mb-8" data-key="whoAreWeTitle">WHO ARE WE?</h2>
+                <!-- Images of Juan and Daniela, and the DedE family -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-center">
+                    <div class="flex justify-center">
+                        <img src="https://i.imgur.com/WfYTDbm.jpeg" alt="Image of Juan and Daniela" class="w-full max-w-sm rounded-lg shadow-xl object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/0a192f/FFFFFF?text=Image+not+available';">
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://i.imgur.com/DNBUp1q.jpeg" alt="Image of the DedE family" class="w-full max-w-sm rounded-lg shadow-xl object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/0a192f/FFFFFF?text=Image+not+available';">
+                    </div>
+                </div>
+                <!-- Introductory text about DedE's mission and founders -->
+                <div class="text-lg leading-relaxed text-gray-300 space-y-4 text-center max-w-3xl mx-auto">
+                    <p data-key="whoAreWePara1">Hello! We are Juan and Daniela, a couple passionate about life, creativity, and God.</p>
+                    <p data-key="whoAreWePara2">
+                        At <span class="font-semibold text-indigo-400">DedE: Design Driven By Devotion</span>,
+                        we believe that design, joy, and beauty can transform lives.
+                        God has given us purpose and abundance, and that is what we want to share with you.
+                    </p>
+                    <p data-key="whoAreWePara3">
+                        DedE is a space where faith and creativity unite. We believe in a beauty that heals, inspires, and connects.
+                    </p>
+                    <p data-key="whoAreWePara4">
+                        Join us on this journey of design, devotion, and transformation.
+                        <span class="font-bold text-indigo-400" data-key="welcomeToDede">Welcome to DedE!</span>
+                    </p>
+                </div>
+
+                <!-- Videos Section: Embedded YouTube videos for more information -->
+                <div class="mt-12 pt-8 border-t border-gray-700">
+                    <h3 class="text-3xl font-semibold text-indigo-400 mb-8 text-center" data-key="videosTitle">Learn more about us</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Video 1 Embed -->
+                        <div class="flex flex-col items-center">
+                            <div class="video-container shadow-lg">
+                                <iframe src="https://www.youtube.com/embed/AzfWM5uFgcw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-4 text-gray-400 text-sm" data-key="video1Caption">Short video about our mission.</p>
+                        </div>
+                        <!-- Video 2 Embed -->
+                        <div class="flex flex-col items-center">
+                            <div class="video-container shadow-lg">
+                                <iframe src="https://www.youtube.com/embed/AUnYg5p-lDc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-4 text-gray-400 text-sm" data-key="video2Caption">An inspirational message from DedE.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- "Products" Content Section: Hidden by default -->
+            <div id="content-productos" class="tab-content hidden w-full bg-gray-900/70 p-6 sm:p-8 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/10">
+                <h2 class="text-4xl font-bold text-center text-indigo-400 mb-10" data-key="productsTitle">PRODUCTS</h2>
+                <!-- Product Language Toggle Buttons -->
+                <div class="w-full max-w-md flex justify-center mb-8 bg-gray-900/50 p-2 rounded-full shadow-lg mx-auto">
+                    <button id="product-lang-en" class="product-lang-button flex-1 py-3 px-6 text-base md:text-lg font-semibold rounded-full transition-all duration-300 ease-in-out" data-key="productsInEnglish">Products in English</button>
+                    <button id="product-lang-es" class="product-lang-button flex-1 py-3 px-6 text-base md:text-lg font-semibold rounded-full transition-all duration-300 ease-in-out" data-key="productsInSpanish">Products in Spanish</button>
+                </div>
+
+                <div class="space-y-12" id="product-list">
+                    <!-- Product 1: Catholic Courtship Microbook (Spanish Version) -->
+                    <div class="product-item p-6 bg-gray-800/60 rounded-xl shadow-lg border border-indigo-700/50" data-product-lang="es">
+                        <h3 class="text-3xl font-semibold text-indigo-300 mb-4 text-center" data-key="catholicCourtshipTitle">MICROLIBRO NOVIAZGO CATÓLICO: La Arquitectura del Alma <span class="text-base font-normal">(Spanish Version)</span></h3>
+                        <div class="flex justify-center mb-6">
+                            <img src="https://i.imgur.com/lcZhYSf.jpeg" alt="Image of Catholic Courtship Microbook" class="w-full max-w-xs rounded-lg shadow-md object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x400/0a192f/FFFFFF?text=Image+not+available';">
+                        </div>
+                        <div class="text-gray-300 leading-relaxed space-y-4 max-w-2xl mx-auto text-center">
+                            <p data-key="catholicCourtshipPara1">
+                                ¿Cansado de relaciones que terminan en ruinas? Este microlibro te ofrece un diseño divino para el amor.
+                                No es un manual de reglas, sino una historia conmovedora de Sofía y Mateo que, restaurando una capilla,
+                                descubren que las grietas son por donde entra la luz de Dios.
+                            </p>
+                            <p data-key="catholicCourtshipPara2">
+                                Aprenderás a ser el arquitecto de tus relaciones junto a Dios, con conceptos claros, bellas ilustraciones
+                                y sabiduría práctica sobre sanación interior, Teología del Cuerpo y la castidad como afirmación del amor.
+                                Un formato ágil para meditar toda la vida.
+                            </p>
+                        </div>
+                        <div class="text-center mt-6">
+                            <!-- Link to Amazon product page -->
+                            <a href="https://www.amazon.com/dp/B0FHF8G3FG" target="_blank" rel="noopener noreferrer"
+                               class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" data-key="buyOnAmazon">
+                                Comprar en Amazon
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Catholic Courtship - The Architecture of the Soul - Microbook Kindle Edition (English Version) -->
+                    <div class="product-item p-6 bg-gray-800/60 rounded-xl shadow-lg border border-teal-700/50" data-product-lang="en">
+                        <h3 class="text-3xl font-semibold text-teal-300 mb-4 text-center" data-key="catholicCourtshipEnTitle">CATHOLIC COURTSHIP: The Architecture of the Soul - Microbook Kindle Edition <span class="text-base font-normal">(English Version)</span></h3>
+                        <div class="flex justify-center mb-6">
+                            <!-- Updated image for the English version of Catholic Courtship -->
+                            <img src="https://imgur.com/qN987zn.jpeg" alt="Image of Catholic Courtship Microbook Kindle Edition (English Version)" class="w-full max-w-xs rounded-lg shadow-md object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x400/0a192f/FFFFFF?text=Image+not+available';">
+                        </div>
+                        <div class="text-gray-300 leading-relaxed space-y-4 max-w-2xl mx-auto text-center">
+                            <p data-key="catholicCourtshipEnPara1">
+                                Tired of chaotic modern dating? This microbook offers a divine design for love. It's a profound yet accessible guide, not a rulebook, but a compelling story of Sofia and Mateo who discover healing through their work.
+                            </p>
+                            <p data-key="catholicCourtshipEnPara2">
+                                With clear illustrations, it covers inner healing, Theology of the Body, and chastity as true love's affirmation. Short enough to read quickly, deep enough for lifelong meditation. Stop building on sand; build on God's design.
+                            </p>
+                        </div>
+                        <div class="text-center mt-6">
+                            <a href="https://www.amazon.com/dp/B0FHNK2H5R" target="_blank" rel="noopener noreferrer"
+                               class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" data-key="buyOnAmazonEn">
+                                Buy on Amazon
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: She Blooms (English Version) -->
+                    <div class="product-item p-6 bg-gray-800/60 rounded-xl shadow-lg border border-pink-700/50" data-product-lang="en">
+                        <h3 class="text-3xl font-semibold text-pink-300 mb-4 text-center" data-key="sheBloomsTitle">SHE BLOOMS: A Coloring Book for Women of Faith <span class="text-base font-normal">(English Version)</span></h3>
+                        <div class="flex justify-center mb-6">
+                            <img src="https://i.imgur.com/cCitnVZ.jpeg" alt="Image of She Blooms" class="w-full max-w-xs rounded-lg shadow-md object-cover" onerror="this.onerror=null;this.src='https://placehold.co/300x400/0a192f/FFFFFF?text=Image+not+available';">
+                        </div>
+                        <div class="text-gray-300 leading-relaxed space-y-4 max-w-2xl mx-auto text-center">
+                            <p data-key="sheBloomsPara1">
+                                <span class="font-semibold">She Blooms</span> is more than a coloring book—it’s an invitation to embark on a deeply personal and spiritual journey. Thoughtfully designed for women of faith, each page offers a sacred pause, inviting you to slow down and reconnect with the truth of who you are in God\'s eyes.
+                            </p>
+                            <p data-key="sheBloomsPara2">
+                                With hand-drawn illustrations and carefully selected Bible verses, this book becomes a quiet space to meditate on God\'s promises and rediscover your worth. As you bring each illustration to life, you’re not just creating art—you’re engaging in a form of prayer and worship. A sanctuary of hope, healing, and beauty.
+                            </p>
+                        </div>
+                        <div class="text-center mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                            <!-- Link to Amazon product page (Black and White version) -->
+                            <a href="https://www.amazon.com/dp/B0FDB5GJLG" target="_blank" rel="noopener noreferrer"
+                               class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" data-key="buyOnAmazonBW">
+                                Buy on Amazon (Black and White)
+                            </a>
+                            <!-- Link to Amazon product page (Premium Color version) -->
+                            <a href="https://www.amazon.com/dp/B0F6NFNL1Z" target="_blank" rel="noopener noreferrer"
+                               class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" data-key="buyOnAmazonColor">
+                                Buy on Amazon (Color Premium)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Section: Copyright information -->
+        <footer class="w-full max-w-5xl text-center mt-12 py-6 text-gray-500 text-sm">
+            <p data-key="footerText">&copy; 2025 DedE. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DOM Element Selection ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const langButtons = document.querySelectorAll('.lang-button');
+            const productLangButtons = document.querySelectorAll('.product-lang-button');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            // --- State Variables ---
+            let currentLang = 'en'; // Default main site language set to English
+            let currentProductLang = 'en'; // Default product display language set to English
+
+            // --- Content Dictionary for Translations ---
+            // This object holds all the translatable strings for both Spanish (es) and English (en).
+            const content = {
+                es: {
+                    tagline: 'Diseño Dirigido por la Devoción',
+                    tabWhoAreWe: '¿Quiénes Somos?',
+                    tabProducts: 'Productos',
+                    whoAreWeTitle: '¿QUIÉNES SOMOS?',
+                    whoAreWePara1: '¡Hola! Somos Juan y Daniela, una pareja apasionada por la vida, la creatividad y Dios.',
+                    whoAreWePara2: 'En <span class="font-semibold text-indigo-400">DedE: Diseño Dirigido por la Devoción (Design Driven By Devotion)</span>, creemos que el diseño, la alegría y la belleza pueden transformar vidas. Dios nos ha dado propósito y abundancia, y eso es lo que queremos compartir contigo.',
+                    whoAreWePara3: 'DedE es un espacio donde la fe y la creatividad se unen. Creemos en una belleza que sana, inspira y conecta.',
+                    whoAreWePara4: 'Acompáñanos en este camino de diseño, devoción y transformación. <span class="font-bold text-indigo-400" data-key="welcomeToDede">¡Bienvenidos a DedE!</span>',
+                    videosTitle: 'Conoce más sobre nosotros',
+                    video1Caption: 'Video corto sobre nuestra misión.',
+                    video2Caption: 'Un mensaje de inspiración de DedE.',
+                    productsTitle: 'PRODUCTOS',
+                    productsInEnglish: 'Productos en Inglés',
+                    productsInSpanish: 'Productos en Español',
+                    catholicCourtshipTitle: 'MICROLIBRO NOVIAZGO CATÓLICO: La Arquitectura del Alma',
+                    catholicCourtshipPara1: '¿Cansado de relaciones que terminan en ruinas? Este microlibro te ofrece un diseño divino para el amor. No es un manual de reglas, sino una historia conmovedora de Sofía y Mateo que, restaurando una capilla, descubren que las grietas son por donde entra la luz de Dios.',
+                    catholicCourtshipPara2: 'Aprenderás a ser el arquitecto de tus relaciones junto a Dios, con conceptos claros, bellas ilustraciones y sabiduría práctica sobre sanación interior, Teología del Cuerpo y la castidad como afirmación del amor. Un formato ágil para meditar toda la vida.',
+                    buyOnAmazon: 'Comprar en Amazon',
+                    catholicCourtshipEnTitle: 'NOVIAZGO CATÓLICO: La Arquitectura del Alma - Edición Kindle',
+                    catholicCourtshipEnPara1: '¿Cansado de citas modernas caóticas? Este microlibro ofrece un diseño divino para el amor. Es una guía profunda pero accesible, no un libro de reglas, sino una historia convincente de Sofía y Mateo que descubren la curación a través de su trabajo.',
+                    catholicCourtshipEnPara2: 'Con ilustraciones claras, cubre la sanación interior, la Teología del Cuerpo y la castidad como la afirmación del amor verdadero. Lo suficientemente corto para leerlo rápidamente, lo suficientemente profundo para meditarlo toda la vida. Deja de construir sobre arena; construye sobre el diseño de Dios.',
+                    buyOnAmazonEn: 'Comprar en Amazon',
+                    sheBloomsTitle: 'SHE BLOOMS: Un Libro para Colorear para Mujeres de Fe',
+                    sheBloomsPara1: '<span class="font-semibold">She Blooms</span> es más que un libro para colorear; es una invitación a un viaje espiritual personal. Diseñado para mujeres de fe, cada página ofrece una pausa sagrada para reconectar con tu verdad en los ojos de Dios.',
+                    sheBloomsPara2: 'Con ilustraciones a mano y versículos bíblicos, este libro es un espacio tranquilo para meditar en las promesas de Dios y redescubrir tu valor. Al colorear, no solo creas arte, sino que te involucras en una forma de oración y adoración. Un santuario de esperanza, sanación y belleza.',
+                    buyOnAmazonBW: 'Comprar en Amazon (Blanco y Negro)',
+                    buyOnAmazonColor: 'Comprar en Amazon (Color Premium)',
+                    footerText: '&copy; 2025 DedE. Todos los derechos reservados.'
+                },
+                en: {
+                    tagline: 'Design Driven By Devotion',
+                    tabWhoAreWe: 'Who Are We?',
+                    tabProducts: 'Products',
+                    whoAreWeTitle: 'WHO ARE WE?',
+                    whoAreWePara1: 'Hello! We are Juan and Daniela, a couple passionate about life, creativity, and God.',
+                    whoAreWePara2: 'At <span class="font-semibold text-indigo-400">DedE: Design Driven By Devotion</span>, we believe that design, joy, and beauty can transform lives. God has given us purpose and abundance, and that is what we want to share with you.',
+                    whoAreWePara3: 'DedE is a space where faith and creativity unite. We believe in a beauty that heals, inspires, and connects.',
+                    whoAreWePara4: 'Join us on this journey of design, devotion, and transformation. <span class="font-bold text-indigo-400" data-key="welcomeToDede">Welcome to DedE!</span>',
+                    videosTitle: 'Learn more about us',
+                    video1Caption: 'Short video about our mission.',
+                    video2Caption: 'An inspirational message from DedE.',
+                    productsTitle: 'PRODUCTS',
+                    productsInEnglish: 'Products in English',
+                    productsInSpanish: 'Products in Spanish',
+                    catholicCourtshipTitle: 'CATHOLIC COURTSHIP MICROBOOK: The Architecture of the Soul',
+                    catholicCourtshipPara1: 'Tired of building loves that end in ruins? This microbook offers you a divine design for love. It\'s not a rulebook, but a moving story of Sofia and Mateo who, while restoring a chapel, discover that cracks are where God\'s light enters.',
+                    catholicCourtshipPara2: 'You will learn to be the architect of your relationships alongside God, with clear concepts, beautiful illustrations, and practical wisdom on inner healing, Theology of the Body, and chastity as the most powerful affirmation of true love. An agile format for lifelong meditation.',
+                    buyOnAmazon: 'Buy on Amazon',
+                    catholicCourtshipEnTitle: 'CATHOLIC COURTSHIP: The Architecture of the Soul - Microbook Kindle Edition',
+                    catholicCourtshipEnPara1: 'Tired of chaotic modern dating? This microbook offers a divine design for love. It\'s a profound yet accessible guide, not a rulebook, but a compelling story of Sofia and Mateo who discover healing through their work.',
+                    catholicCourtshipEnPara2: 'With clear illustrations, it covers inner healing, Theology of the Body, and chastity as true love\'s affirmation. Short enough to read quickly, deep enough for lifelong meditation. Stop building on sand; build on God\'s design.',
+                    buyOnAmazonEn: 'Buy on Amazon',
+                    sheBloomsTitle: 'SHE BLOOMS: A Coloring Book for Women of Faith',
+                    sheBloomsPara1: '<span class="font-semibold">She Blooms</span> is more than a coloring book—it’s an invitation to embark on a deeply personal and spiritual journey. Thoughtfully designed for women of faith, each page offers a sacred pause, inviting you to slow down and reconnect with the truth of who you are in God\'s eyes.',
+                    sheBloomsPara2: 'With hand-drawn illustrations and carefully selected Bible verses, this book becomes a quiet space to meditate on God\'s promises and rediscover your worth. As you bring each illustration to life, you’re not just creating art—you’re engaging in a form of prayer and worship. A sanctuary of hope, healing, and beauty.',
+                    buyOnAmazonBW: 'Buy on Amazon (Black and White)',
+                    buyOnAmazonColor: 'Buy on Amazon (Color Premium)',
+                    footerText: '&copy; 2025 DedE. All rights reserved.'
+                }
+            };
+
+            // --- Functions ---
+
+            /**
+             * Updates the page content based on the selected language.
+             * It iterates through all elements with a 'data-key' attribute and updates their innerHTML
+             * with the corresponding translated text from the 'content' dictionary.
+             * @param {string} lang - The language code ('es' or 'en').
+             */
+            function updateContent(lang) {
+                document.querySelectorAll('[data-key]').forEach(element => {
+                    const key = element.getAttribute('data-key');
+                    if (content[lang] && content[lang][key]) {
+                        element.innerHTML = content[lang][key];
+                    }
+                });
+            }
+
+            /**
+             * Shows a specific tab content section and hides all other tab content sections.
+             * It also updates the 'active' class on the corresponding tab buttons.
+             * @param {string} targetTabId - The ID of the content section to show (e.g., 'content-quienes-somos').
+             */
+            function showTab(targetTabId) {
+                // Hide all tab contents by adding the 'hidden' class
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                // Show the target tab content by removing the 'hidden' class
+                document.getElementById(targetTabId).classList.remove('hidden');
+
+                // Update the active state for tab buttons
+                tabButtons.forEach(button => {
+                    // Derive the content ID from the button's ID
+                    const tabId = button.id.replace('tab-', 'content-');
+                    if (tabId === targetTabId) {
+                        button.classList.add('active'); // Add 'active' class to the selected tab button
+                    } else {
+                        button.classList.remove('active'); // Remove 'active' class from other tab buttons
+                    }
+                });
+
+                // If the "Products" tab is being shown, filter products by the current product language
+                if (targetTabId === 'content-productos') {
+                    filterProducts(currentProductLang);
+                }
+            }
+            
+            /**
+             * Sets the active language button by adding/removing the 'active' class.
+             * @param {string} lang - The language code ('es' or 'en').
+             */
+            function setActiveLangButton(lang) {
+                langButtons.forEach(btn => {
+                    if (btn.id === `lang-${lang}`) {
+                        btn.classList.add('active'); // Add 'active' class to the selected language button
+                    } else {
+                        btn.classList.remove('active'); // Remove 'active' class from other language buttons
+                    }
+                });
+            }
+
+            /**
+             * Filters and displays products based on the selected language.
+             * @param {string} lang - The product language to display ('es' or 'en').
+             */
+            function filterProducts(lang) {
+                productItems.forEach(item => {
+                    if (item.getAttribute('data-product-lang') === lang) {
+                        item.classList.remove('hidden'); // Show product if language matches
+                    } else {
+                        item.classList.add('hidden'); // Hide product if language does not match
+                    }
+                });
+
+                // Update the active state for product language buttons
+                productLangButtons.forEach(button => {
+                    const buttonLang = button.id.replace('product-lang-', '');
+                    if (buttonLang === lang) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- Event Listeners ---
+
+            // Add click listeners to tab buttons to handle tab switching
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.id.replace('tab-', 'content-'); // Get the corresponding content ID
+                    showTab(tabId); // Show the selected tab
+                });
+            });
+
+            // Add click listeners to language buttons to handle main site language changes
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentLang = this.id.replace('lang-', ''); // Update the current main site language state
+                    setActiveLangButton(currentLang); // Set the active main site language button style
+                    updateContent(currentLang); // Update all translatable content on the page
+                });
+            });
+
+            // Add click listeners to product language buttons to filter products
+            productLangButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentProductLang = this.id.replace('product-lang-', ''); // Update the current product language state
+                    filterProducts(currentProductLang); // Filter products based on the selected language
+                });
+            });
+
+            // --- Initial Page Load Setup ---
+            // This function is called once the DOM is fully loaded to set up the initial state of the page.
+            function initialize() {
+                showTab('content-quienes-somos'); // Show the "Who Are We?" tab by default
+                setActiveLangButton(currentLang); // Set the initial active main site language button
+                updateContent(currentLang); // Load content in the default main site language
+                filterProducts(currentProductLang); // Filter products by the default product language
+            }
+
+            initialize(); // Call the initialization function
+        });
+    </script>
+</body>
+</html>
